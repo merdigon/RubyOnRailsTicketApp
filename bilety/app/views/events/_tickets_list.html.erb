@@ -1,0 +1,27 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Seat id seq</th>
+      <th>Address</th>
+      <th>Price</th>
+      <th>Email address</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @tickets != nil %>
+        <% @tickets.each do |ticket| %>
+            <tr>
+                <td><%= ticket.name %></td>
+                <td><%= ticket.seat_id_seq %></td>
+                <td><%= ticket.address %></td>
+                <td><%= ticket.price %></td>
+                <td><%= ticket.email_address %></td>
+                <td><%= ticket.phone %></td>
+            </tr>
+        <% end %>
+    <% end %>
+  </tbody>
+</table>

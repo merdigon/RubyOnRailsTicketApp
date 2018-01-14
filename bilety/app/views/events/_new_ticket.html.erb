@@ -42,13 +42,10 @@
   </div>
 
   <div class="field">
-    <%= form.label :event_id %>
-    <%= form.number_field :event_id, id: :ticket_event_id %>
+    <%= form.hidden_field :event_id, id: :ticket_event_id %>
   </div>
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
-
- <%= render "events_list" %>
