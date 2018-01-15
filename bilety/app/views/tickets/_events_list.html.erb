@@ -1,8 +1,10 @@
 <div>
   <h3>Dostępne wydarzenia:</h3>
     <ul>
-    <% for event in @events %>
-    <li><%= event.id %>. <%= event.artist %></li>
+    <% if @events != nil %>
+      <% for event in @events %>
+      <li><%= event.id %>. <%= event.artist %></li>
+      <% end %>
     <% end %>
     </ul>
 </div>

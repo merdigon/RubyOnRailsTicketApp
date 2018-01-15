@@ -11,4 +11,4 @@
 
 <%= render "new_ticket", ticket: Ticket.new( :event_id=>@event.id) %>
 
-<%= link_to 'Back', events_path %>
+<%= link_to 'Back', events_path, class: 'btn btn-success' %>
