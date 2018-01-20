@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :check_logged_in, :only => [:new, :create]
+  before_action :authenticate_user!, :check_logged_in, :only => [:new, :create]
 
   def index
     @events = Event.all
@@ -15,7 +15,7 @@ class EventsController < ApplicationController
 
   def create
       event_parmas = params.require(:event).permit(:artist, :description,
-      :price_low, :price_high, :event_date)
+      :price_low, :price_high, :event_date, :image_src, :is_adult_only, :places_limit)
       @event = Event.new(event_parmas)
       if @event.save
       flash[:komunikat] = 'Event został poprawnie stworzony.'
@@ -29,7 +29,9 @@ end
 private 
 
 def check_logged_in
-  authenticate_or_request_with_http_basic("Ads") do |username, password|
-  username == "admin" && password == "admin"
+  if !user_signed_in?
+    authenticate_or_request_with_http_basic("Ads") do |is_admin|
+      is_admin == true
+    end
   end
 end

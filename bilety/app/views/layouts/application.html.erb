@@ -9,21 +9,49 @@
   </head>
 
   <body>
-    <% if notice %>
-      <p class="alert alert-success"><%= notice %></p>
-    <% end %>
-    <% if alert %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-    <p class="navbar-text pull-right">
-      <% if user_signed_in? %>Logged in as <strong><%= current_user.email %></strong>.
-        <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'%>
-      <% else %>
-        <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'%> |
-        <%= link_to "Login", new_user_session_path, :class => 'navbar-link'%>      
+    <div class="container">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
       <% end %>
-    </p>
-    <%= yield %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+      <nav class="navbar navbar-default">
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/events"><%= fa_icon('calendar') %> Events</a></li>
+            <% if user_signed_in? %>
+              <% if current_user.is_admin? %>
+                <li><a href="/tickets"><%= fa_icon('ticket') %> All tickets</a></li>
+              <% else %>
+                <li><a href="/tickets"><%= fa_icon('ticket') %> Your tickets</a></li>
+              <% end %>        
+            <% end %>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>Logged in as <strong><%= current_user.email %></strong>.
+              <li><%= link_to edit_user_registration_path, :class => 'navbar-link' do %>
+                <%= fa_icon('pencil') %> Edit profile
+              <% end %>
+              </li>
+              <li><%= link_to destroy_user_session_path, method: :delete, :class => 'navbar-link' do %>
+                <%= fa_icon('sign-out') %> Logout
+              <% end %>
+              </li>
+            <% else %>
+              <li><%= link_to new_user_registration_path, :class => 'navbar-link' do %>
+                <%= fa_icon('user-plus') %> Sign up
+              <% end %>
+              </li>
+              <li><%= link_to new_user_session_path, :class => 'navbar-link' do %>
+                <%= fa_icon('sign-in') %> Login
+              <% end %>
+              </li>    
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -1,9 +1,36 @@
-<div>
-  <h1> Wszystkie wydarzenia</h1>
-    <ul>
+<div class="container">
+  <div ckass="row">
     <% for event in @events %>
-    <li><%= link_to event.artist, event %></li>
+      <div class="col-md-4 col-lg-4 col-sm-4">
+        <div class="thumbnail">
+          <img src=<%= event.image_src %>>
+          <div class="caption">
+            <h3><%= event.artist %></h3>
+            <p class="event-description">
+              <%= event.description %>
+            </p>      
+            <span>
+              <%= event.event_date %>                          
+            </span>
+            <% if event.is_adult_only? %>   
+              <p class="age-restricted">
+                Age restricted!
+              </p>
+            <% end %>     
+            <p class="event-buttons">
+              <% if user_signed_in? %>
+                <% if !event.is_adult_only? or (event.is_adult_only? and current_user.is_adult?) %>
+                  <%= link_to 'Buy', new_ticket_path, class: 'btn btn-info'%>
+                <% end %>
+              <% end %>
+              <%= link_to 'Details', event, class: 'btn btn-success'%>
+            </p>
+          </div>
+        </div>
+     </div>
     <% end %>
-    </ul>
-    <%= link_to 'Nowe ogłoszenie', new_event_path, class: 'btn btn-success' %>  
+  </div>
+</div>
+<div class="new-event">
+  <%= link_to 'Nowe ogłoszenie', new_event_path, class: 'btn btn-success' %>
 </div>

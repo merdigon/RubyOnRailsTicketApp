@@ -35,6 +35,21 @@
     <%= form.number_field :price_high, id: :event_price_high %>
     </div>
 
+    <div class="field">
+    <%= form.label 'Image url' %>
+    <%= form.text_field :image_src, id: :event_image_src %>
+    </div>
+
+    <div class="field">
+    <%= form.label 'Number of tickets' %>
+    <%= form.text_field :places_limit, id: :event_places_limit %>
+    </div>
+
+    <div class="field">
+    <%= form.label 'Adults only' %>
+    <%= form.check_box :is_adult_only, id: :event_is_adult_only %>
+    </div>
+
     <div class="actions">
     <%= form.submit %>
   </div>

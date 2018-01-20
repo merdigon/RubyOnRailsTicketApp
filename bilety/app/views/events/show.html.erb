@@ -1,14 +1,34 @@
 <p id="komunikat"><%= flash[:komunikat] %></p>
-<h1><%= @event.artist %></h1>
-<ul>
-    <li><%= @event.description %></li>
-    <li><%= @event.price_low %></li>
-    <li><%= @event.price_high %></li>
-    <li><%= @event.event_date %></li>
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-lg-8 col-sm-8 event-detail">
+            <h1><%= @event.artist %></h1>
 
-<%= render "tickets_list", tickets: @event.tickets %>
+            Description: <%= @event.description %></br>
+            Price: <%= @event.price_low %> - <%= @event.price_high %></br>
+            Event date: <%= @event.event_date %></br>
+            Max tickets: <%= @event.places_limit %></br>
+            <% if @event.is_adult_only %>
+                <p class="age-restricted">Age limited to 18!</p>
+            <% end %>
 
-<%= render "new_ticket", ticket: Ticket.new( :event_id=>@event.id) %>
+            <%= link_to 'Back', events_path, class: 'btn btn-success' %></br></br>
 
-<%= link_to 'Back', events_path, class: 'btn btn-success' %>
+            <% if current_user.is_admin? %>
+                <h3>Already bought tickets:</h3>
+                <% if @event.tickets != nil and @event.tickets.count > 0 %>
+                    <%= render "tickets_list", tickets: @event.tickets %>
+                <% else %>
+                    No tickets to show!</br>
+                <% end %>
+            <% end %>
+            </br>
+            <% if user_signed_in? %>
+                <% if !@event.is_adult_only? or (@event.is_adult_only? and current_user.is_adult?) %>
+                    <h3>Buy ticket:</h3>
+                    <%= render "new_ticket", ticket: Ticket.new( :event_id=>@event.id) %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>
