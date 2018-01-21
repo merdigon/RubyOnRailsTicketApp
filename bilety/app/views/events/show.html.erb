@@ -8,6 +8,7 @@
             Price: <%= @event.price_low %> - <%= @event.price_high %></br>
             Event date: <%= @event.event_date %></br>
             Max tickets: <%= @event.places_limit %></br>
+            Tickets left: <%= @placesLeft %>
             <% if @event.is_adult_only %>
                 <p class="age-restricted">Age limited to 18!</p>
             <% end %>
@@ -26,7 +27,7 @@
             <% if user_signed_in? %>
                 <% if !@event.is_adult_only? or (@event.is_adult_only? and current_user.is_adult?) %>
                     <h3>Buy ticket:</h3>
-                    <%= render "new_ticket", ticket: Ticket.new( :event_id=>@event.id) %>
+                    <%= render "new_ticket", ticket: Ticket.new( :event_id=>@event.id, :user_id=>current_user.id) %>
                 <% end %>
             <% end %>
         </div>

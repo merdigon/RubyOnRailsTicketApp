@@ -18,11 +18,6 @@
               </p>
             <% end %>     
             <p class="event-buttons">
-              <% if user_signed_in? %>
-                <% if !event.is_adult_only? or (event.is_adult_only? and current_user.is_adult?) %>
-                  <%= link_to 'Buy', new_ticket_path, class: 'btn btn-info'%>
-                <% end %>
-              <% end %>
               <%= link_to 'Details', event, class: 'btn btn-success'%>
             </p>
           </div>
@@ -31,6 +26,8 @@
     <% end %>
   </div>
 </div>
-<div class="new-event">
-  <%= link_to 'Nowe ogłoszenie', new_event_path, class: 'btn btn-success' %>
-</div>
+<% if user_signed_in? and current_user.is_admin? %> 
+  <div class="new-event">
+    <%= link_to 'Nowe ogłoszenie', new_event_path, class: 'btn btn-success' %>
+  </div>
+<% end %>

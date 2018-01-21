@@ -11,8 +11,8 @@
   </thead>
 
   <tbody>
-    <% if @tickets != nil %>
-        <% @tickets.each do |ticket| %>
+    <% if tickets != nil %>
+        <% tickets.each do |ticket| %>
             <tr>
                 <td><%= ticket.name %></td>
                 <td><%= ticket.seat_id_seq %></td>
@@ -22,6 +22,6 @@
                 <td><%= ticket.phone %></td>
             </tr>
         <% end %>
-    <% end %>
+      <% end %>
   </tbody>
 </table>

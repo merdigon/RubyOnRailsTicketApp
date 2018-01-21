@@ -17,11 +17,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :seat_id_seq %>
-    <%= form.text_field :seat_id_seq, id: :ticket_seat_id_seq %>
-  </div>
-
-  <div class="field">
     <%= form.label :address %>
     <%= form.text_area :address, id: :ticket_address %>
   </div>
@@ -43,6 +38,15 @@
 
   <div class="field">
     <%= form.hidden_field :event_id, id: :ticket_event_id %>
+  </div>
+  
+  <div class="field">
+    <%= form.hidden_field :user_id, id: :ticket_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'Number of tickets' %>
+    <%= form.number_field :ticketsToGenerate %>
   </div>
 
   <div class="actions">

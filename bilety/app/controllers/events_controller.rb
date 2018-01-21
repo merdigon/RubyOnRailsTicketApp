@@ -7,6 +7,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @placesLeft = @event.places_limit - @event.tickets.count
   end
 
   def new
@@ -14,8 +15,8 @@ class EventsController < ApplicationController
   end
 
   def create
-      event_parmas = params.require(:event).permit(:artist, :description,
-      :price_low, :price_high, :event_date, :image_src, :is_adult_only, :places_limit)
+      event_parmas = params.require(:event).permit(:name, :event_id,
+      :price_low, :price_high, :event_date, :image_src, :is_adult_only, :ticketsToGenerate)
       @event = Event.new(event_parmas)
       if @event.save
       flash[:komunikat] = 'Event został poprawnie stworzony.'

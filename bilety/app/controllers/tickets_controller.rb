@@ -17,6 +17,7 @@ class TicketsController < ApplicationController
   # GET /tickets/new
   def new
     @ticket = Ticket.new
+    @ticketsToGenerate = 1
     @events = Event.all
   end
 
@@ -27,16 +28,27 @@ class TicketsController < ApplicationController
   # POST /tickets
   # POST /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
-
+    ticket_params = params.require(:ticket).permit(:name, :address,
+    :price, :email_address, :phone, :event_id, :places_limit, :seat_id_seq, :user_id, :ticketsToGenerate)
+    event = Event.find(ticket_params[:event_id])
+    user = User.find(ticket_params[:user_id])
     respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render :show, status: :created, location: @ticket }
-      else
-        format.html { render :new }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
+      numberOfTickets = ticket_params[:ticketsToGenerate]
+      logger.debug "Ilość biletów: " + numberOfTickets
+      ticketsToUse = numberOfTickets.to_f + event.tickets.count  
+      if ticketsToUse <= event.places_limit
+        for i in 1..(numberOfTickets.to_f)
+          @ticket = Ticket.new(ticket_params.except(:ticketsToGenerate))
+          @ticket.price = event.price_low
+          @ticket.seat_id_seq = event.tickets.count + 1
+          if !@ticket.save
+            format.html { render :new }
+            format.json { render json: @ticket.errors, status: :unprocessable_entity }
+          end
+        end
+        format.html { redirect_to event, notice: 'Tickets were successfully created.' }
+        format.json { render :show, status: :created, location: event }
+      end      
     end
   end
 
