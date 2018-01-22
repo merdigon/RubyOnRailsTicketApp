@@ -15,8 +15,8 @@ class EventsController < ApplicationController
   end
 
   def create
-      event_parmas = params.require(:event).permit(:name, :event_id,
-      :price_low, :price_high, :event_date, :image_src, :is_adult_only, :ticketsToGenerate)
+      event_parmas = params.require(:event).permit(:artist, :description, :event_id,
+      :price_low, :price_high, :event_date, :image_src, :is_adult_only, :places_limit)
       @event = Event.new(event_parmas)
       if @event.save
       flash[:komunikat] = 'Event został poprawnie stworzony.'
