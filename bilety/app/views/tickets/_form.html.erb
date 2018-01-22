@@ -41,10 +41,12 @@
     <%= form.text_field :phone, id: :ticket_phone %>
   </div>
 
-  <div class="field">
-    <%= form.label 'Number of tickets' %>
-    <%= form.number_field :ticketsToGenerate %>
-  </div>
+  <% if @mode == 'new' %>
+    <div class="field">
+      <%= form.label 'Number of tickets' %>
+      <%= form.number_field :ticketsToGenerate %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit %>

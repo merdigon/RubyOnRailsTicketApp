@@ -15,7 +15,7 @@
 
             <%= link_to 'Back', events_path, class: 'btn btn-success' %></br></br>
 
-            <% if current_user.is_admin? %>
+            <% if user_signed_in? and current_user.is_admin? %>
                 <h3>Already bought tickets:</h3>
                 <% if @event.tickets != nil and @event.tickets.count > 0 %>
                     <%= render "tickets_list", tickets: @event.tickets %>

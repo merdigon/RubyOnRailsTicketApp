@@ -11,6 +11,8 @@ div.new-event {
 }
 p.event-description {
     max-height: 100px;
+    display: inline-block;
+    overflow: hidden
 }
 
 p.age-restricted {
