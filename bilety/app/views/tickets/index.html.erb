@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>Artist</th>
+      <th>Date</th>
       <th>Name</th>
       <th>Seat id seq</th>
       <th>Address</th>
@@ -20,6 +21,7 @@
     <% @tickets.each do |ticket| %>
       <tr>
         <td><%= ticket.event.artist %></td>
+        <td><%= ticket.event.event_date %></td>        
         <td><%= ticket.name %></td>
         <td><%= ticket.seat_id_seq %></td>
         <td><%= ticket.address %></td>
